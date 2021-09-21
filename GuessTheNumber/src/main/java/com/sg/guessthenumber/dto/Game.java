@@ -5,6 +5,8 @@
  */
 package com.sg.guessthenumber.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author pierre
@@ -42,6 +44,46 @@ public class Game {
         this.isCompleted = isCompleted;
     }
     
+    @Override
+    public int hashCode() 
+    {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.answer);
+        hash = 89 * hash + Objects.hashCode(this.isCompleted);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) 
+    {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Game other = (Game) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.answer, other.answer)) {
+            return false;
+        }
+        if (!Objects.equals(this.isCompleted, other.isCompleted)) {
+            return false;
+        }
+        return true;
+    }    
+    
+    @Override
+    public String toString() 
+    {
+        return "Game{" + "Id=" + id + ", answer=" + answer + ", isCompleted=" + isCompleted + '}';
+    }
     
     
     

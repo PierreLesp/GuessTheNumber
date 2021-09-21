@@ -5,6 +5,8 @@
  */
 package com.sg.guessthenumber.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author pierre
@@ -43,6 +45,46 @@ public class Round {
     
     
     
+    @Override
+    public int hashCode() 
+    {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.gameId);
+        hash = 89 * hash + Objects.hashCode(this.roundId);
+        hash = 89 * hash + Objects.hashCode(this.guess);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) 
+    {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Round other = (Round) obj;
+        if (!Objects.equals(this.gameId, other.gameId)) {
+            return false;
+        }
+        if (!Objects.equals(this.roundId, other.roundId)) {
+            return false;
+        }
+        if (!Objects.equals(this.guess, other.guess)) {
+            return false;
+        }
+        return true;
+    }    
+    
+    @Override
+    public String toString() 
+    {
+        return "Round{" + "GameId=" + gameId + ", roundId=" + roundId + ", guess=" + guess + '}';
+    }
     
     
 }
