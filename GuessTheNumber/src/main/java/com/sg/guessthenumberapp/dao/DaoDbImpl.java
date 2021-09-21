@@ -41,15 +41,15 @@ public class DaoDbImpl implements Dao {
     public Round addNewRoundToGameId(Round round) {
         final String sql = "INSERT INTO round(gameId, guess1, guess2, guess3, guess4) "
                 + "VALUES(?,?,?,?,?)";
-        
-        
-        
+
+
+
          GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbc.update((Connection conn) -> {
 
             PreparedStatement statement = conn.prepareStatement(
-                sql, 
+                sql,
                 Statement.RETURN_GENERATED_KEYS);
 
             statement.setInt(1, round.getGameId());
@@ -61,8 +61,8 @@ public class DaoDbImpl implements Dao {
 
         }, keyHolder);
 
-        round.setRoundId(keyHolder.getKey().intValue());        
-        
+        round.setRoundId(keyHolder.getKey().intValue());
+
         return round;
     }
 
@@ -71,14 +71,14 @@ public class DaoDbImpl implements Dao {
     public Game addNewGame(Game game){
         final String sql = "INSERT INTO game(ans1, ans2, ans3, ans4, isCompleted) "
                 + "VALUES(?,?,?,?,?)";
-        
-        
+
+
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbc.update((Connection conn) -> {
 
             PreparedStatement statement = conn.prepareStatement(
-                sql, 
+                sql,
                 Statement.RETURN_GENERATED_KEYS);
 
             statement.setInt(1, game.getAns1());
@@ -91,10 +91,10 @@ public class DaoDbImpl implements Dao {
         }, keyHolder);
 
         game.setId(keyHolder.getKey().intValue());
-        
-        
-        
-        
+
+
+
+
         return game;
     }
 
@@ -107,7 +107,7 @@ public class DaoDbImpl implements Dao {
                 + "ans2 = ?, "
                 + "ans3 = ?, "
                 + "ans4 = ?, "
-                + "isCompleted = ?"
+                + "isCompleted = ? "
                 + "WHERE id = ?;";
 
         return jdbc.update(sql,
@@ -116,13 +116,25 @@ public class DaoDbImpl implements Dao {
                 game.getAns2(),
                 game.getAns3(),
                 game.getAns4(),
-                game.isIsCompleted()) > 0;
+                game.isIsCompleted(),
+                game.getId()) > 0;
     }
 
     @Override
     public List<Game> getAllGames(){
         final String SELECT_ALL_GAMES = "SELECT * FROM game";
         return jdbc.query(SELECT_ALL_GAMES, new GameMapper());
+    }
+
+    @Override
+    @Transactional
+    public void deleteGameById(int id) {
+        final String DELETE_ROUND = "DELETE FROM round "
+                + "WHERE gameId = ?";
+        jdbc.update(DELETE_ROUND, id);
+
+        final String DELETE_GAME = "DELETE FROM game WHERE id = ?";
+        jdbc.update(DELETE_GAME, id);
     }
 
     public static final class GameMapper implements RowMapper<Game> {

@@ -25,5 +25,5 @@ public interface Dao {
 
     public List<Game> getAllGames();
 
-
+    public void deleteGameById(int id);
 }
