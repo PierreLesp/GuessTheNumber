@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,9 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 
-
-@RestController
 @RequestMapping("/")
+@RestController
 public class Controller 
 {
     
@@ -41,7 +40,7 @@ public class Controller
     }
     
     
-    @RequestMapping("/begin")
+    @RequestMapping("/begin/")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Game createGame(@RequestBody Game game) 
@@ -50,7 +49,7 @@ public class Controller
     }
     
     
-    @RequestMapping("/guess")
+    @RequestMapping("/guess/")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Round createRound(@RequestBody Round round) 
@@ -58,7 +57,7 @@ public class Controller
         return dao.addNewRoundToGameId(round);
     }
     
-    @RequestMapping("/game")
+    @RequestMapping("/game/")
     @GetMapping
     public List<Game> getAllGames() 
     {
@@ -68,7 +67,7 @@ public class Controller
     
     
     
-    @GetMapping("/rounds/{id}")
+    @GetMapping("/rounds/{id}/")
     public ResponseEntity<List<Round>> findById(@PathVariable int id) 
     {
         List<Round> result = dao.getAllRoundsByGameId(id);

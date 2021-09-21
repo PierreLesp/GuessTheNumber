@@ -7,12 +7,16 @@ package com.sg.guessthenumberapp.dao;
 
 import com.sg.guessthenumberapp.dto.Game;
 import com.sg.guessthenumberapp.dto.Round;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,31 +39,62 @@ public class DaoDbImpl implements Dao {
     @Override
     @Transactional
     public Round addNewRoundToGameId(Round round) {
-        final String INSERT_ROUND = "INSERT INTO round(gameId, roundId, guess1, guess2, guess3, guess4) "
-                + "VALUES(?,?,?,?,?,?)";
-        jdbc.update(INSERT_ROUND,
-                round.getGameId(),
-                round.getRoundId(),
-                round.getGuess1(),
-                round.getGuess2(),
-                round.getGuess3(),
-                round.getGuess4());
+        final String sql = "INSERT INTO round(gameId, guess1, guess2, guess3, guess4) "
+                + "VALUES(?,?,?,?,?)";
+        
+        
+        
+         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbc.update((Connection conn) -> {
+
+            PreparedStatement statement = conn.prepareStatement(
+                sql, 
+                Statement.RETURN_GENERATED_KEYS);
+
+            statement.setInt(1, round.getGameId());
+            statement.setInt(2, round.getGuess1());
+            statement.setInt(3, round.getGuess2());
+            statement.setInt(4, round.getGuess3());
+            statement.setInt(5, round.getGuess4());
+            return statement;
+
+        }, keyHolder);
+
+        round.setRoundId(keyHolder.getKey().intValue());        
+        
         return round;
     }
 
     @Override
     @Transactional
     public Game addNewGame(Game game){
-        final String INSERT_GAME = "INSERT INTO game(ans1, ans2, ans3, ans4, isCompleted) "
+        final String sql = "INSERT INTO game(ans1, ans2, ans3, ans4, isCompleted) "
                 + "VALUES(?,?,?,?,?)";
-        jdbc.update(INSERT_GAME,
-                game.getAns1(),
-                game.getAns2(),
-                game.getAns3(),
-                game.getAns4(),
-                game.isIsCompleted());
-        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-        game.setId(newId);
+        
+        
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbc.update((Connection conn) -> {
+
+            PreparedStatement statement = conn.prepareStatement(
+                sql, 
+                Statement.RETURN_GENERATED_KEYS);
+
+            statement.setInt(1, game.getAns1());
+            statement.setInt(2, game.getAns2());
+            statement.setInt(3, game.getAns3());
+            statement.setInt(4, game.getAns4());
+            statement.setBoolean(5, game.isIsCompleted());
+            return statement;
+
+        }, keyHolder);
+
+        game.setId(keyHolder.getKey().intValue());
+        
+        
+        
+        
         return game;
     }
 
