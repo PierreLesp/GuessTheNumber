@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.guessthenumber.dao;
+package com.sg.guessthenumberapp.dao;
 
-import com.sg.guessthenumber.dto.Game;
-import com.sg.guessthenumber.dto.Round;
+import com.sg.guessthenumberapp.dto.Game;
+import com.sg.guessthenumberapp.dto.Round;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;

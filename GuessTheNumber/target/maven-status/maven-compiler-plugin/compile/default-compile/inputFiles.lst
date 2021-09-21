@@ -1,7 +1,10 @@
-C:\Users\kavin\Desktop\Git Projects\MThree Labs or Projects\Java Projects\GuessTheNumber\GuessTheNumber\src\main\java\com\sg\guessthenumber\dto\Round.java
-C:\Users\kavin\Desktop\Git Projects\MThree Labs or Projects\Java Projects\GuessTheNumber\GuessTheNumber\src\main\java\com\sg\guessthenumber\controller\Controller.java
-C:\Users\kavin\Desktop\Git Projects\MThree Labs or Projects\Java Projects\GuessTheNumber\GuessTheNumber\src\main\java\com\sg\guessthenumber\dao\Dao.java
-C:\Users\kavin\Desktop\Git Projects\MThree Labs or Projects\Java Projects\GuessTheNumber\GuessTheNumber\src\main\java\com\sg\guessthenumber\dao\DaoDbImpl.java
-C:\Users\kavin\Desktop\Git Projects\MThree Labs or Projects\Java Projects\GuessTheNumber\GuessTheNumber\src\main\java\com\sg\guessthenumber\app\App.java
-C:\Users\kavin\Desktop\Git Projects\MThree Labs or Projects\Java Projects\GuessTheNumber\GuessTheNumber\src\main\java\com\sg\guessthenumber\dao\DaoMemoryImpl.java
-C:\Users\kavin\Desktop\Git Projects\MThree Labs or Projects\Java Projects\GuessTheNumber\GuessTheNumber\src\main\java\com\sg\guessthenumber\dto\Game.java
+/Users/pierre/Desktop/mthree/gitrepos/GuessTheNumber/GuessTheNumber/src/main/java/com/sg/guessthenumberapp/dto/Game.java
+/Users/pierre/Desktop/mthree/gitrepos/GuessTheNumber/GuessTheNumber/src/main/java/com/sg/guessthenumberapp/App.java
+/Users/pierre/Desktop/mthree/gitrepos/GuessTheNumber/GuessTheNumber/src/main/java/com/sg/guessthenumberapp/dao/Dao.java
+/Users/pierre/Desktop/mthree/gitrepos/GuessTheNumber/GuessTheNumber/src/main/java/com/sg/guessthenumberapp/dto/Round.java
+/Users/pierre/Desktop/mthree/gitrepos/GuessTheNumber/GuessTheNumber/src/main/java/com/sg/guessthenumberapp/dao/DaoDbImpl.java
+/Users/pierre/Desktop/mthree/gitrepos/GuessTheNumber/GuessTheNumber/src/main/java/com/sg/guessthenumberapp/controller/Error.java
+/Users/pierre/Desktop/mthree/gitrepos/GuessTheNumber/GuessTheNumber/src/main/java/com/sg/guessthenumberapp/service/ServiceLayerImpl.java
+/Users/pierre/Desktop/mthree/gitrepos/GuessTheNumber/GuessTheNumber/src/main/java/com/sg/guessthenumberapp/service/ServiceLayer.java
+/Users/pierre/Desktop/mthree/gitrepos/GuessTheNumber/GuessTheNumber/src/main/java/com/sg/guessthenumberapp/controller/ControllerExceptionHandler.java
+/Users/pierre/Desktop/mthree/gitrepos/GuessTheNumber/GuessTheNumber/src/main/java/com/sg/guessthenumberapp/controller/Controller.java
