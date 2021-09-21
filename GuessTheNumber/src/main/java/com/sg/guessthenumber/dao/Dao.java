@@ -16,12 +16,12 @@ import java.util.List;
 public interface Dao {
 
     public List<Round> getAllRoundsByGameId(int id);
-    
+
     public Round addNewRoundToGameId(Round round);
 
     public Game addNewGame(Game game);
 
-    public boolean editIsFinished(int id);
+    public boolean editIsFinished(Game game);
 
     public List<Game> getAllGames();
 

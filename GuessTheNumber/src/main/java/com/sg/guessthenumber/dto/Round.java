@@ -12,12 +12,18 @@ import java.util.Objects;
  * @author pierre
  */
 public class Round {
-    
+
     private int roundId;
-    
+
     private int gameId;
-    
-    int[] guess;
+
+    private int guess1;
+
+    private int guess2;
+
+    private int guess3;
+
+    private int guess4;
 
     public int getRoundId() {
         return roundId;
@@ -35,29 +41,52 @@ public class Round {
         this.gameId = gameId;
     }
 
-    public int[] getGuess() {
-        return guess;
+    public int getGuess1() {
+        return guess1;
     }
 
-    public void setGuess(int[] guess) {
-        this.guess = guess;
+    public void setGuess1(int guess1) {
+        this.guess1 = guess1;
     }
-    
-    
-    
+
+    public int getGuess2() {
+        return guess2;
+    }
+
+    public void setGuess2(int guess2) {
+        this.guess2 = guess2;
+    }
+
+    public int getGuess3() {
+        return guess3;
+    }
+
+    public void setGuess3(int guess3) {
+        this.guess3 = guess3;
+    }
+
+    public int getGuess4() {
+        return guess4;
+    }
+
+    public void setGuess4(int guess4) {
+        this.guess4 = guess4;
+    }
+
     @Override
-    public int hashCode() 
-    {
+    public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.gameId);
-        hash = 89 * hash + Objects.hashCode(this.roundId);
-        hash = 89 * hash + Objects.hashCode(this.guess);
+        hash = 59 * hash + this.roundId;
+        hash = 59 * hash + this.gameId;
+        hash = 59 * hash + this.guess1;
+        hash = 59 * hash + this.guess2;
+        hash = 59 * hash + this.guess3;
+        hash = 59 * hash + this.guess4;
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) 
-    {
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -68,23 +97,30 @@ public class Round {
             return false;
         }
         final Round other = (Round) obj;
-        if (!Objects.equals(this.gameId, other.gameId)) {
+        if (this.roundId != other.roundId) {
             return false;
         }
-        if (!Objects.equals(this.roundId, other.roundId)) {
+        if (this.gameId != other.gameId) {
             return false;
         }
-        if (!Objects.equals(this.guess, other.guess)) {
+        if (this.guess1 != other.guess1) {
+            return false;
+        }
+        if (this.guess2 != other.guess2) {
+            return false;
+        }
+        if (this.guess3 != other.guess3) {
+            return false;
+        }
+        if (this.guess4 != other.guess4) {
             return false;
         }
         return true;
-    }    
-    
-    @Override
-    public String toString() 
-    {
-        return "Round{" + "GameId=" + gameId + ", roundId=" + roundId + ", guess=" + guess + '}';
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Round{" + "roundId=" + roundId + ", gameId=" + gameId + ", guess1=" + guess1 + ", guess2=" + guess2 + ", guess3=" + guess3 + ", guess4=" + guess4 + '}';
+    }
+
 }

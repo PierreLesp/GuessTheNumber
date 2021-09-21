@@ -35,38 +35,56 @@ public class DaoDbImpl implements Dao {
     @Override
     @Transactional
     public Round addNewRoundToGameId(Round round) {
-        final String INSERT_ROUND = "INSERT INTO round(gameId, roundId, num1, num2, num3, num4) "
+        final String INSERT_ROUND = "INSERT INTO round(gameId, roundId, guess1, guess2, guess3, guess4) "
                 + "VALUES(?,?,?,?,?,?)";
-        int[] guess = round.getGuess();
         jdbc.update(INSERT_ROUND,
                 round.getGameId(),
                 round.getRoundId(),
-                guess[0],
-                guess[1],
-                guess[2],
-                guess[3]);
+                round.getGuess1(),
+                round.getGuess2(),
+                round.getGuess3(),
+                round.getGuess4());
         return round;
     }
 
+    @Override
+    @Transactional
     public Game addNewGame(Game game){
         final String INSERT_GAME = "INSERT INTO game(ans1, ans2, ans3, ans4, isCompleted) "
                 + "VALUES(?,?,?,?,?)";
-        int[] answer = game.getAnswer();
         jdbc.update(INSERT_GAME,
-                answer[0],
-                answer[1],
-                answer[2],
-                answer[3],
+                game.getAns1(),
+                game.getAns2(),
+                game.getAns3(),
+                game.getAns4(),
                 game.isIsCompleted());
         int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
         game.setId(newId);
         return game;
     }
 
-    public boolean editIsFinished(int id){
+    @Override
+    public boolean editIsFinished(Game game){
 
+        final String sql = "UPDATE game SET "
+                + "id = ?, "
+                + "ans1 = ?, "
+                + "ans2 = ?, "
+                + "ans3 = ?, "
+                + "ans4 = ?, "
+                + "isCompleted = ?"
+                + "WHERE id = ?;";
+
+        return jdbc.update(sql,
+                game.getId(),
+                game.getAns1(),
+                game.getAns2(),
+                game.getAns3(),
+                game.getAns4(),
+                game.isIsCompleted()) > 0;
     }
 
+    @Override
     public List<Game> getAllGames(){
         final String SELECT_ALL_GAMES = "SELECT * FROM game";
         return jdbc.query(SELECT_ALL_GAMES, new GameMapper());
@@ -78,8 +96,10 @@ public class DaoDbImpl implements Dao {
         public Game mapRow(ResultSet rs, int index) throws SQLException {
             Game game = new Game();
             game.setId(rs.getInt("id"));
-            int[] answer = {rs.getInt("ans1"), rs.getInt("ans2"), rs.getInt("ans3"), rs.getInt("ans4")};
-            game.setAnswer(answer);
+            game.setAns1(rs.getInt("ans1"));
+            game.setAns2(rs.getInt("ans2"));
+            game.setAns3(rs.getInt("ans3"));
+            game.setAns4(rs.getInt("ans4"));
             game.setIsCompleted(rs.getBoolean("isCompleted"));
             return game;
         }
@@ -94,8 +114,10 @@ public class DaoDbImpl implements Dao {
             Round round = new Round();
             round.setGameId(rs.getInt("gameId"));
             round.setRoundId(rs.getInt("roundId"));
-            int[] guess = {rs.getInt("num1"), rs.getInt("num2"), rs.getInt("num3"), rs.getInt("num4")};
-            round.setGuess(guess);
+            round.setGuess1(rs.getInt("guess1"));
+            round.setGuess2(rs.getInt("guess2"));
+            round.setGuess3(rs.getInt("guess3"));
+            round.setGuess4(rs.getInt("guess4"));
             return round;
         }
     }
