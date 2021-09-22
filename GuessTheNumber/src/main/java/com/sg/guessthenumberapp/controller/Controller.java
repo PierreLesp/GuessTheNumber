@@ -7,6 +7,7 @@ package com.sg.guessthenumberapp.controller;
 
 import com.sg.guessthenumberapp.dao.Dao;
 import com.sg.guessthenumberapp.dto.Game;
+import com.sg.guessthenumberapp.dto.GameDisplay;
 import com.sg.guessthenumberapp.dto.Round;
 import com.sg.guessthenumberapp.service.ServiceLayer;
 import java.util.List;
@@ -36,16 +37,17 @@ public class Controller
     private final Dao dao;
 
     @Autowired
-    public Controller(Dao dao)
+    public Controller(Dao dao, ServiceLayer service)
     {
         this.dao = dao;
+        this.service = service;
     }
 
 
     @RequestMapping("/begin/")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Game createGame()
+    public GameDisplay createGame()
     {
         return service.addNewGame();
     }
@@ -61,9 +63,9 @@ public class Controller
 
     @RequestMapping("/game/")
     @GetMapping
-    public List<Game> getAllGames()
+    public List<GameDisplay> getAllGames()
     {
-        return dao.getAllGames();
+        return service.getAllGames();
     }
 
 
@@ -84,11 +86,12 @@ public class Controller
         //IMPLEMENT
 
 
-    // @GetMapping("/game/{id}")
-    // public returnType functionName(@PathVariable int id)
-    // {
-    //
-    // }
+    @RequestMapping("/game/{id}")
+    @GetMapping
+    public GameDisplay functionName(@PathVariable int id)
+    {
+        return service.getGame(id);
+    }
 
 
 

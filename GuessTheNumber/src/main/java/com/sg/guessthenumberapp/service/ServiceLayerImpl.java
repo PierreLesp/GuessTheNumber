@@ -7,6 +7,7 @@ package com.sg.guessthenumberapp.service;
 
 import com.sg.guessthenumberapp.dao.Dao;
 import com.sg.guessthenumberapp.dto.Game;
+import com.sg.guessthenumberapp.dto.GameDisplay;
 import com.sg.guessthenumberapp.dto.Round;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ServiceLayerImpl implements ServiceLayer {
     }
 
     @Override
-    public Game addNewGame() {
+    public GameDisplay addNewGame() {
         Random rnd = new Random();
         List<Integer> answer = new ArrayList<Integer>();
         while (answer.size() < 4){
@@ -48,17 +49,48 @@ public class ServiceLayerImpl implements ServiceLayer {
         game.setAns2(answer.get(1));
         game.setAns3(answer.get(2));
         game.setAns4(answer.get(3));
-        return dao.addNewGame(game);
+        dao.addNewGame(game);
+        GameDisplay returnValue = new GameDisplay();
+        
+        returnValue.setId(game.getId());
+        returnValue.setIsCompleted(game.isIsCompleted());
+        
+        return returnValue;
     }
 
     @Override
-    public Game getGame(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public GameDisplay getGame(int id) 
+    {
+        
+        Game game = dao.getGame(id);
+        
+        GameDisplay returnValue = new GameDisplay();
+        
+        returnValue.setId(game.getId());
+        returnValue.setIsCompleted(game.isIsCompleted());
+        
+        return returnValue;
     }
 
     @Override
-    public List<Game> getAllGames() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<GameDisplay> getAllGames() 
+    {
+        List<Game> games = dao.getAllGames();
+        
+        List<GameDisplay> gamesDisplay = new ArrayList<GameDisplay>();
+        
+        for(Game game : games)
+        {
+            GameDisplay returnValue = new GameDisplay();
+        
+            returnValue.setId(game.getId());
+            returnValue.setIsCompleted(game.isIsCompleted());
+            
+            gamesDisplay.add(returnValue);
+        }
+        
+        return gamesDisplay;
+        
     }
 
     @Override

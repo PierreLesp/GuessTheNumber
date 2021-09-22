@@ -9,4 +9,5 @@ com/sg/guessthenumberapp/dto/Game.class
 com/sg/guessthenumberapp/dto/Round.class
 com/sg/guessthenumberapp/dao/DaoDbImpl$GameMapper.class
 com/sg/guessthenumberapp/service/ServiceLayer.class
+com/sg/guessthenumberapp/TestApplicationConfiguration.class
 com/sg/guessthenumberapp/service/ServiceLayerImpl.class

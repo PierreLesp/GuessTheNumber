@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.sg.guessthenumberapp.dao.DaoDbImplTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.504 sec - in com.sg.guessthenumberapp.dao.DaoDbImplTest

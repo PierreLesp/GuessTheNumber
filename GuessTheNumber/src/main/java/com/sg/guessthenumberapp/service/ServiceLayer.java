@@ -6,6 +6,7 @@
 package com.sg.guessthenumberapp.service;
 
 import com.sg.guessthenumberapp.dto.Game;
+import com.sg.guessthenumberapp.dto.GameDisplay;
 import com.sg.guessthenumberapp.dto.Round;
 import java.util.List;
 
@@ -19,11 +20,11 @@ public interface ServiceLayer {
 
     public String guess(int gameId, int guess1, int guess2, int guess3, int guess4);
 
-    public Game addNewGame();
+    public GameDisplay addNewGame();
 
-    public Game getGame(int id);
+    public GameDisplay getGame(int id);
 
-    public List<Game> getAllGames();
+    public List<GameDisplay> getAllGames();
 
     public void deleteGameById(int id);
 }
