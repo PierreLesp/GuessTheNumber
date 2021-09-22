@@ -121,6 +121,17 @@ public class DaoDbImpl implements Dao {
     }
 
     @Override
+    public Game getGame(int id){
+        final String SELECT_GAME = "SELECT * FROM game WHERE id = ?";
+        jdbc.update(SELECT_GAME, id);
+        List<Game> games = jdbc.query(SELECT_GAME, new GameMapper());
+        if (games.isEmpty())
+            return null;
+        else
+            return games.get(0);
+    }
+
+    @Override
     public List<Game> getAllGames(){
         final String SELECT_ALL_GAMES = "SELECT * FROM game";
         return jdbc.query(SELECT_ALL_GAMES, new GameMapper());

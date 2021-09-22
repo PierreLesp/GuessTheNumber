@@ -23,6 +23,8 @@ public interface Dao {
 
     public boolean editIsFinished(Game game);
 
+    public Game getGame(int id);
+
     public List<Game> getAllGames();
 
     public void deleteGameById(int id);

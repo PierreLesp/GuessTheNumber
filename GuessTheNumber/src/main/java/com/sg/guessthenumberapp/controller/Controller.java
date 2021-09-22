@@ -8,6 +8,7 @@ package com.sg.guessthenumberapp.controller;
 import com.sg.guessthenumberapp.dao.Dao;
 import com.sg.guessthenumberapp.dto.Game;
 import com.sg.guessthenumberapp.dto.Round;
+import com.sg.guessthenumberapp.service.ServiceLayer;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,47 +29,48 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/")
 @RestController
-public class Controller 
+public class Controller
 {
-    
+
+    private final ServiceLayer service;
     private final Dao dao;
-    
+
     @Autowired
-    public Controller(Dao dao) 
+    public Controller(Dao dao)
     {
         this.dao = dao;
     }
-    
-    
+
+
     @RequestMapping("/begin/")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Game createGame(@RequestBody Game game) 
+    public Game createGame()
     {
-        return dao.addNewGame(game);
+        return service.addNewGame();
     }
-    
-    
+
+
     @RequestMapping("/guess/")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Round createRound(@RequestBody Round round) 
+    public Round createRound(@RequestBody Round round)
     {
         return dao.addNewRoundToGameId(round);
     }
-    
+
     @RequestMapping("/game/")
     @GetMapping
-    public List<Game> getAllGames() 
+    public List<Game> getAllGames()
     {
         return dao.getAllGames();
     }
-    
-    
-    
-    
+
+
+
+
     @GetMapping("/rounds/{id}/")
-    public ResponseEntity<List<Round>> findById(@PathVariable int id) 
+    public ResponseEntity<List<Round>> findById(@PathVariable int id)
     {
         List<Round> result = dao.getAllRoundsByGameId(id);
         if (result == null) {
@@ -76,18 +78,18 @@ public class Controller
         }
         return ResponseEntity.ok(result);
     }
-    
-    
-    // TO DO 
+
+
+    // TO DO
         //IMPLEMENT
-    
-    
+
+
     // @GetMapping("/game/{id}")
     // public returnType functionName(@PathVariable int id)
     // {
-    //      
+    //
     // }
-    
-    
-    
+
+
+
 }
