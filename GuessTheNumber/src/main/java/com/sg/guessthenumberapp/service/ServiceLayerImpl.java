@@ -10,6 +10,7 @@ import com.sg.guessthenumberapp.dto.Game;
 import com.sg.guessthenumberapp.dto.GameDisplay;
 import com.sg.guessthenumberapp.dto.Round;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,31 @@ public class ServiceLayerImpl implements ServiceLayer {
 
     @Override
     public String guess(int gameId, int guess1, int guess2, int guess3, int guess4) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Game game = dao.getGame(gameId);
+        Round round = new Round();
+        round.setGameId(gameId);
+        round.setGuess1(guess1);
+        round.setGuess2(guess2);
+        round.setGuess3(guess3);
+        round.setGuess4(guess4);
+        dao.addNewRoundToGameId(round);
+        int exactGuess = 0;
+        int partialGuess = 0;
+        Integer[] answer = new Integer[]{game.getAns1(), game.getAns2(), game.getAns3(), game.getAns4()};
+        Integer[] guess = new Integer[]{guess1, guess2, guess3, guess4};
+        List<Integer> answerList = new ArrayList<>(Arrays.asList(answer));
+        for (int i = 0; i < answer.length; i++){
+            if (answer[i] == guess[i]){
+                exactGuess++;
+            }
+            else if (answerList.contains(guess[i])){
+                partialGuess++;
+            }
+        }
+        if (exactGuess == 4)
+            game.setIsCompleted(true);
+        dao.editIsFinished(game);
+        return "e:" + exactGuess + ":p:" + partialGuess;
     }
 
     @Override
@@ -51,46 +76,46 @@ public class ServiceLayerImpl implements ServiceLayer {
         game.setAns4(answer.get(3));
         dao.addNewGame(game);
         GameDisplay returnValue = new GameDisplay();
-        
+
         returnValue.setId(game.getId());
         returnValue.setIsCompleted(game.isIsCompleted());
-        
+
         return returnValue;
     }
 
     @Override
-    public GameDisplay getGame(int id) 
+    public GameDisplay getGame(int id)
     {
-        
+
         Game game = dao.getGame(id);
-        
+
         GameDisplay returnValue = new GameDisplay();
-        
+
         returnValue.setId(game.getId());
         returnValue.setIsCompleted(game.isIsCompleted());
-        
+
         return returnValue;
     }
 
     @Override
-    public List<GameDisplay> getAllGames() 
+    public List<GameDisplay> getAllGames()
     {
         List<Game> games = dao.getAllGames();
-        
+
         List<GameDisplay> gamesDisplay = new ArrayList<GameDisplay>();
-        
+
         for(Game game : games)
         {
             GameDisplay returnValue = new GameDisplay();
-        
+
             returnValue.setId(game.getId());
             returnValue.setIsCompleted(game.isIsCompleted());
-            
+
             gamesDisplay.add(returnValue);
         }
-        
+
         return gamesDisplay;
-        
+
     }
 
     @Override
